@@ -1,122 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Birthday Surprise 🎂</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Birthday Surprise ✨</title>
 
-body{
-background:#fff6b3;
-overflow:hidden;
-text-align:center;
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
 }
 
-/* screens */
-.screen{
-position:absolute;
-width:100%;
-height:100%;
+body{
+height:100vh;
+overflow:hidden;
+background: linear-gradient(135deg,#ffd6e0,#c9f0ff);
 display:flex;
 justify-content:center;
 align-items:center;
-flex-direction:column;
 }
 
-.hidden{display:none;}
+/* smooth card */
+.card{
+text-align:center;
+padding:40px;
+border-radius:25px;
+background:rgba(255,255,255,0.25);
+backdrop-filter: blur(12px);
+box-shadow:0 10px 40px rgba(0,0,0,0.1);
+width:90%;
+max-width:420px;
+}
 
-/* tap button */
+/* button */
 button{
-padding:15px 30px;
-font-size:20px;
+padding:12px 25px;
 border:none;
 border-radius:20px;
-background:#ff7eb9;
+background:#ff6fa5;
 color:white;
+font-size:18px;
 cursor:pointer;
+margin-top:15px;
+transition:0.3s;
 }
 
-/* cute text */
-h1,h2,p{
-margin:10px;
+button:hover{
+transform:scale(1.05);
+}
+
+/* hidden screens */
+.screen{
+display:none;
+}
+
+.active{
+display:block;
 }
 
 /* confetti */
 .confetti{
 position:absolute;
-width:10px;
-height:10px;
+width:8px;
+height:8px;
 background:red;
-animation:fall 3s linear infinite;
+top:-10px;
+animation: fall 3s linear forwards;
 }
 
 @keyframes fall{
-0%{transform:translateY(-100vh) rotate(0);}
-100%{transform:translateY(100vh) rotate(360deg);}
+to{
+transform:translateY(110vh) rotate(360deg);
+}
+}
+
+h1{
+color:#ff3f8b;
+}
+
+p{
+margin-top:10px;
+color:#333;
 }
 </style>
 </head>
+
 <body>
 
-<div class="screen" id="screen1">
-<h1>🌞 Tap Hereee ✨</h1>
-<button onclick="next1()">Tap</button>
+<!-- SCREEN 1 -->
+<div class="card screen active" id="s1">
+<h1>✨ Tap Here ✨</h1>
+<button onclick="next()">Start</button>
 </div>
 
-<div class="screen hidden" id="screen2">
-<h2>🧸 Teddy + 🐱 Cat</h2>
-<p>Make a wish ✨</p>
-<button onmousedown="startHold()" onmouseup="blow()">Hold to Blow 🎂</button>
+<!-- SCREEN 2 -->
+<div class="card screen" id="s2">
+<h1>🎂 Make a Wish</h1>
+<p>Hold the button for 3 seconds</p>
+<button onmousedown="hold()" onmouseup="blow()">🎈 Hold</button>
 </div>
 
-<div class="screen hidden" id="screen3">
-<h1>🎉 HAPPIEST BIRTHDAY SHRIYASH 🎉</h1>
+<!-- SCREEN 3 -->
+<div class="card screen" id="s3">
+<h1>🎉 Happiest Birthday Shriyash 🎉</h1>
 <p id="msg"></p>
 </div>
 
-<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-
 <script>
 
-function next1(){
-document.getElementById('screen1').classList.add('hidden');
-document.getElementById('screen2').classList.remove('hidden');
+function next(){
+document.getElementById("s1").classList.remove("active");
+document.getElementById("s2").classList.add("active");
 }
 
-function startHold(){
+function hold(){
 setTimeout(blow,3000);
 }
 
 function blow(){
-document.getElementById('screen2').classList.add('hidden');
-document.getElementById('screen3').classList.remove('hidden');
+document.getElementById("s2").classList.remove("active");
+document.getElementById("s3").classList.add("active");
 
-document.getElementById('music').play();
+document.getElementById("msg").innerText =
+`May your life be full of happiness, love and success ✨
+Mla purn vishwas ahe tu sagla achieve karshil 💖`;
 
-let msg = `🎂 Happppyyy Birthdayyyy Shriyashhhhhhh!!!
-
-May your life be filled with happiness, prosperity, fulfillment, love, and countless beautiful moments.
-
-Ani ho, lakshat thev... no matter what happens, tu tu ahes.
-
-Tujhyat khup potential ahe, ani tu sagla milvu shaktos.
-
-Mla purn vishwas aheee! 😊✨
-
-Jari mi sobat asel nasel tarihi, ha vishwas kadhi badalnar nahi.
-
-🎉💖 Happppyyyyy Birthdayyyyyyyyyy!!!`;
-
-document.getElementById('msg').innerText = msg;
-
-for(let i=0;i<50;i++){
-let d=document.createElement('div');
-d.className='confetti';
-d.style.left=Math.random()*100+"vw";
-d.style.backgroundColor=["pink","yellow","blue","purple"][Math.floor(Math.random()*4)];
-document.body.appendChild(d);
+for(let i=0;i<60;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.background=["#ff4d6d","#ffd166","#06d6a0","#4dabf7"][Math.floor(Math.random()*4)];
+document.body.appendChild(c);
 }
-
 }
 
 </script>

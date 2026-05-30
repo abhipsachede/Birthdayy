@@ -1,1 +1,125 @@
-Hellooo
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Birthday Surprise 🎂</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+
+body{
+background:#fff6b3;
+overflow:hidden;
+text-align:center;
+}
+
+/* screens */
+.screen{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+.hidden{display:none;}
+
+/* tap button */
+button{
+padding:15px 30px;
+font-size:20px;
+border:none;
+border-radius:20px;
+background:#ff7eb9;
+color:white;
+cursor:pointer;
+}
+
+/* cute text */
+h1,h2,p{
+margin:10px;
+}
+
+/* confetti */
+.confetti{
+position:absolute;
+width:10px;
+height:10px;
+background:red;
+animation:fall 3s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-100vh) rotate(0);}
+100%{transform:translateY(100vh) rotate(360deg);}
+}
+</style>
+</head>
+<body>
+
+<div class="screen" id="screen1">
+<h1>🌞 Tap Hereee ✨</h1>
+<button onclick="next1()">Tap</button>
+</div>
+
+<div class="screen hidden" id="screen2">
+<h2>🧸 Teddy + 🐱 Cat</h2>
+<p>Make a wish ✨</p>
+<button onmousedown="startHold()" onmouseup="blow()">Hold to Blow 🎂</button>
+</div>
+
+<div class="screen hidden" id="screen3">
+<h1>🎉 HAPPIEST BIRTHDAY SHRIYASH 🎉</h1>
+<p id="msg"></p>
+</div>
+
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<script>
+
+function next1(){
+document.getElementById('screen1').classList.add('hidden');
+document.getElementById('screen2').classList.remove('hidden');
+}
+
+function startHold(){
+setTimeout(blow,3000);
+}
+
+function blow(){
+document.getElementById('screen2').classList.add('hidden');
+document.getElementById('screen3').classList.remove('hidden');
+
+document.getElementById('music').play();
+
+let msg = `🎂 Happppyyy Birthdayyyy Shriyashhhhhhh!!!
+
+May your life be filled with happiness, prosperity, fulfillment, love, and countless beautiful moments.
+
+Ani ho, lakshat thev... no matter what happens, tu tu ahes.
+
+Tujhyat khup potential ahe, ani tu sagla milvu shaktos.
+
+Mla purn vishwas aheee! 😊✨
+
+Jari mi sobat asel nasel tarihi, ha vishwas kadhi badalnar nahi.
+
+🎉💖 Happppyyyyy Birthdayyyyyyyyyy!!!`;
+
+document.getElementById('msg').innerText = msg;
+
+for(let i=0;i<50;i++){
+let d=document.createElement('div');
+d.className='confetti';
+d.style.left=Math.random()*100+"vw";
+d.style.backgroundColor=["pink","yellow","blue","purple"][Math.floor(Math.random()*4)];
+document.body.appendChild(d);
+}
+
+}
+
+</script>
+
+</body>
+</html>
